@@ -1,5 +1,6 @@
 ﻿using Expectable.Matchers;
 using System;
+using System.Collections.Generic;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -9,6 +10,44 @@ namespace Expectable.Example
     class Program
     {
         static void Main(string[] args)
+        {
+            ping_expect();
+            multiple_patterns();
+            Console.ReadLine();
+        }
+        public static void ping_expect()
+        {
+            ExpectableProcess process = new ExpectableProcess("ping", "google.com");
+            Session session = new Session(process);
+
+            process.Start();
+            session.Expect(new Patterns() {
+                {"could not find",(output,sender)=>{
+                    Console.WriteLine("Could Not Resolve ping host");
+                } },
+                { "timeout",(output,sender)=>{
+                    Console.WriteLine("timeout pinging host");
+                } },
+                {"Ping statistics" ,(output,sender)=>{
+                    Console.WriteLine("All done Pinging");
+                } },
+                { new Regex(@"Reply from ([0-9]{1,3}\.[0-9]{1,3}\.[[0-9]{1,3}\.[0-9]{1,3}).+time=([0-9]*ms).+TTL=([0-9]*)"),(output, sender) => {
+                    List<string> matchGroups=output.ToList();
+                    Console.WriteLine($"ping reply regex matchgroups-->");
+
+                    //iterate over regex matchgroups (ip, time, ttl) 
+                    for (int i=0; i<matchGroups.Count;i++)
+                    {
+                        Console.WriteLine($"    matchgroup: {i}, value: {matchGroups[i]}");
+                    }
+
+                    //continue expect flow
+                    sender.Continue=true;
+                } }
+            });
+        }
+
+        public static void multiple_patterns()
         {
             StringBuffer stringBuffer = new StringBuffer();
             Session session = new Session(stringBuffer);
@@ -64,8 +103,6 @@ namespace Expectable.Example
 
             Console.WriteLine();
             Console.WriteLine($"All done, final count: {count}");
-
-            Console.ReadLine();
         }
     }
 }

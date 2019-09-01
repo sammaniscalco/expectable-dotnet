@@ -32,10 +32,12 @@ namespace Expectable.Test
             IMatcher containsMatcher = new ContainsMatcher(regex);
 
             //act
-            bool isMatch = containsMatcher.IsMatch("now I know my abcs");
+            MatchResult matchResult = containsMatcher.IsMatch("now I know my abcs");
+            bool isMatch = matchResult.IsMatch;
 
             //assert
             Assert.NotNull(containsMatcher);
+            Assert.NotNull(matchResult);
             Assert.True(isMatch);
         }
 
@@ -47,10 +49,12 @@ namespace Expectable.Test
             IMatcher containsMatcher = new ContainsMatcher(regex);
 
             //act
-            bool isMatch = containsMatcher.IsMatch("next time won't you sing with me");
+            MatchResult matchResult = containsMatcher.IsMatch("next time won't you sing with me");
+            bool isMatch = matchResult.IsMatch;
 
             //assert
             Assert.NotNull(containsMatcher);
+            Assert.NotNull(matchResult);
             Assert.False(isMatch);
         }
     }

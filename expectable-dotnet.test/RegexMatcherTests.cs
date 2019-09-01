@@ -50,10 +50,12 @@ namespace Expectable.Test
             IMatcher regexMatcher = new RegexMatcher(pattern);
 
             //act
-            bool isMatch = regexMatcher.IsMatch("now I know my abcs and 123s");
+            MatchResult matchResult = regexMatcher.IsMatch("now I know my abcs and 123s");
+            bool isMatch = matchResult.IsMatch;
 
             //assert
             Assert.NotNull(regexMatcher);
+            Assert.NotNull(matchResult);
             Assert.True(isMatch);
         }
 
@@ -65,10 +67,12 @@ namespace Expectable.Test
             IMatcher regexMatcher = new RegexMatcher(pattern);
 
             //act
-            bool isMatch = regexMatcher.IsMatch("next time won't you sing with me");
+            MatchResult matchResult = regexMatcher.IsMatch("next time won't you sing with me");
+            bool isMatch = matchResult.IsMatch;
 
             //assert
             Assert.NotNull(regexMatcher);
+            Assert.NotNull(matchResult);
             Assert.False(isMatch);
         }
     }

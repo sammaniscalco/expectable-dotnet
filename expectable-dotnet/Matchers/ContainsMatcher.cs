@@ -1,4 +1,6 @@
 ﻿
+using Expectable.Outputs;
+
 namespace Expectable.Matchers
 {
     public class ContainsMatcher : IMatcher
@@ -10,9 +12,16 @@ namespace Expectable.Matchers
             Pattern = pattern;
         }        
 
-        public bool IsMatch(string output)
+        public MatchResult IsMatch(string output)
         {
-            return output.Contains(Pattern);
+            bool isMatch = output.Contains(Pattern);
+
+            MatchResult match = new MatchResult()
+            {
+                Ouput = new StringOutput(output),
+                IsMatch = isMatch
+            };
+            return match;
         }
     }
 }

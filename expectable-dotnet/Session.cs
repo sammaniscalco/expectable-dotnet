@@ -45,6 +45,7 @@ namespace Expectable
             CancellationToken ct = tokenSource.Token;
 
             string output = string.Empty;
+            IOutput matchOutput = null;
             bool isFound = false;
             Pattern foundPattern = null;
 
@@ -59,9 +60,12 @@ namespace Expectable
                     //loop through expected patterns
                     foreach (Pattern pattern in patterns)
                     {
+                        MatchResult result = pattern.Matcher.IsMatch(output);
+
                         //is this pattern a match on the output
-                        if (pattern.Matcher.IsMatch(output))
+                        if (result.IsMatch)
                         {
+                            matchOutput = result.Ouput;
                             isFound = true;                            
                             foundPattern = pattern;
                             break;
@@ -75,7 +79,7 @@ namespace Expectable
                 if (foundPattern != null && foundPattern.Handler != null)
                 {
                     //execute handler logic
-                    foundPattern.Handler(output, foundPattern);
+                    foundPattern.Handler(matchOutput, foundPattern);
 
                     //if continue rerun expects
                     if (foundPattern.Continue)

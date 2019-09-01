@@ -1,4 +1,6 @@
 ﻿
+using Expectable.Outputs;
+
 namespace Expectable.Matchers
 {
     //exact matcher
@@ -11,9 +13,15 @@ namespace Expectable.Matchers
             Pattern = pattern;
         }
 
-        public bool IsMatch(string output)
+        public MatchResult IsMatch(string output)
         {
-            return output.Equals(Pattern);
+            bool isMatch = output.Equals(Pattern);
+
+            MatchResult match = new MatchResult() {
+                Ouput = new StringOutput(output),
+                IsMatch = isMatch
+            };
+            return match;
         }
     }
 }

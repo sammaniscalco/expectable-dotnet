@@ -34,10 +34,12 @@ namespace Expectable.Test
             IMatcher exactMatcher = new ExactMatcher(pattern);
 
             //act
-            bool isMatch = exactMatcher.IsMatch("abc");
+            MatchResult matchResult = exactMatcher.IsMatch("abc");
+            bool isMatch = matchResult.IsMatch;
 
             //assert
             Assert.NotNull(exactMatcher);
+            Assert.NotNull(matchResult);
             Assert.True(isMatch);
         }
 
@@ -49,10 +51,12 @@ namespace Expectable.Test
             IMatcher exactMatcher = new ExactMatcher(pattern);
 
             //act
-            bool isMatch = exactMatcher.IsMatch("now I know my abcs");
+            MatchResult matchResult = exactMatcher.IsMatch("now I know my abcs");
+            bool isMatch = matchResult.IsMatch;
 
             //assert
             Assert.NotNull(exactMatcher);
+            Assert.NotNull(matchResult);
             Assert.False(isMatch);
         }
     }

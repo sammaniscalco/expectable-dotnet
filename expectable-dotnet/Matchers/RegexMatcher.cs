@@ -1,6 +1,9 @@
-﻿using System.Text.RegularExpressions;
+﻿using Expectable.Outputs;
+using System.Collections.Generic;
+using System.Text.RegularExpressions;
 
 namespace Expectable.Matchers
+
 {
     public class RegexMatcher : IMatcher
     {
@@ -16,28 +19,34 @@ namespace Expectable.Matchers
             Pattern = regex.ToString();
         }
 
-        public bool IsMatch(string output)
+        public MatchResult IsMatch(string output)
         {
-            var match = Regex.Match(output, Pattern, RegexOptions.Singleline);
+            List<string> matchGroups = new List<string>();
 
-            if (match.Success)
+            var regexMatch = Regex.Match(output, Pattern, RegexOptions.Singleline);
+
+            if (regexMatch.Success)
             {
-                output = string.Empty;
-
-                if (match.Groups.Count > 2)
+                if (regexMatch.Groups.Count > 2)
                 {
-                    for (int g = 1; g < match.Groups.Count; g++)
+                    for (int g = 1; g < regexMatch.Groups.Count; g++)
                     {
-                        output += $"{match.Groups[g].Value}|";
+                        matchGroups.Add(regexMatch.Groups[g].Value);
                     }
                 }
                 //get first/last capture group
                 else
                 {
-                    output = match.Groups[match.Groups.Count - 1].Value;
+                    matchGroups.Add(regexMatch.Groups[regexMatch.Groups.Count - 1].Value);
                 }
             }
-            return match.Success;
+
+            MatchResult match = new MatchResult()
+            {
+                Ouput = new ListOutput(matchGroups),
+                IsMatch = regexMatch.Success
+            };
+            return match;
         }
     }
 }

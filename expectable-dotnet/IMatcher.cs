@@ -3,7 +3,7 @@ namespace Expectable
 {
     public interface IMatcher
     {
-        bool IsMatch(string output);
+        MatchResult IsMatch(string output);
         string Pattern { get; }
     }
 }

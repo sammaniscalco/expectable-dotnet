@@ -7,7 +7,7 @@ namespace Expectable
     public class Pattern
     {
         public IMatcher Matcher { get; }
-        public Action<string, Pattern> Handler { get; }
+        public Action<IOutput, Pattern> Handler { get; }
         public bool Continue { get; set; }
 
         /// <summary>
@@ -15,7 +15,7 @@ namespace Expectable
         /// </summary>
         /// <param name="pattern"></param>
         /// <param name="handler"></param>
-        public Pattern(string pattern, Action<string, Pattern> handler)
+        public Pattern(string pattern, Action<IOutput, Pattern> handler)
         {
             this.Matcher = new ContainsMatcher(pattern);
             this.Handler = handler;
@@ -27,7 +27,7 @@ namespace Expectable
         /// </summary>
         /// <param name="pattern"></param>
         /// <param name="handler"></param>
-        public Pattern(Regex pattern, Action<string, Pattern> handler)
+        public Pattern(Regex pattern, Action<IOutput, Pattern> handler)
         {
             this.Matcher = new RegexMatcher(pattern.ToString());
             this.Handler = handler;
@@ -39,7 +39,7 @@ namespace Expectable
         /// </summary>
         /// <param name="matcher"></param>
         /// <param name="handler"></param>
-        public Pattern(IMatcher matcher, Action<string, Pattern> handler)
+        public Pattern(IMatcher matcher, Action<IOutput, Pattern> handler)
         {
             this.Matcher = matcher;
             this.Handler = handler;

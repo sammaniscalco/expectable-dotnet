@@ -1,0 +1,31 @@
+{
+  "Services": {
+    "Service": [
+      {
+        "Id": "ms",
+        "Name": "edge-management-server",
+        "Port": 8080
+      },
+      {
+        "Id": "mp",
+        "Name": "edge-message-processor",
+        "Port": 8082
+      },
+      {
+        "Id": "r",
+        "Name": "edge-router",
+        "Port": 8081
+      },
+      {
+        "Id": "qis",
+        "Name": "edge-qpid-server",
+        "Port": 8083
+      },
+      {
+        "Id": "ps",
+        "Name": "edge-postgres-server",
+        "Port": 8084
+      }
+    ]
+  }
+}

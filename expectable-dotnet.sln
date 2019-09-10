@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.28803.352
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "expectable-dotnet", "expectable-dotnet\expectable-dotnet.csproj", "{C5C8FCE3-B346-4282-85C7-1E3EC5A3FF48}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expectable-dotnet.Test", "expectable-dotnet.Test\expectable-dotnet.Test.csproj", "{3C55F446-5958-4B62-B406-78D7670605FE}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expectable-dotnet.Tests", "expectable-dotnet.Tests\expectable-dotnet.Tests.csproj", "{3C55F446-5958-4B62-B406-78D7670605FE}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "expectable-dotnet.Example", "expectable-dotnet.Example\expectable-dotnet.Example.csproj", "{F480F3B6-9735-434E-9FC0-038724EEBB33}"
 EndProject
